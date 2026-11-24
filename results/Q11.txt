@@ -1,0 +1,17 @@
+-- Q11: 가장 많이 대여된 도서 TOP 3 (랭킹)
+SELECT b.title, COUNT(*) AS rental_count
+FROM rental r
+JOIN book b ON b.id = r.book_id
+GROUP BY b.id, b.title
+ORDER BY rental_count DESC, b.id
+LIMIT 3;
+
+-- 실행 결과 --
++---------------------+--------------+
+| title               | rental_count |
++---------------------+--------------+
+| 파이썬 입문         | 4            |
+| SQL 첫걸음          | 3            |
+| 모던 C++ 프로그래밍 | 1            |
++---------------------+--------------+
+(3 rows)

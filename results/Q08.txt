@@ -1,0 +1,14 @@
+-- Q08: [LEFT JOIN] 한 번도 대여되지 않은 도서
+SELECT b.id, b.title
+FROM book b
+LEFT JOIN rental r ON r.book_id = b.id
+WHERE r.id IS NULL;
+
+-- 실행 결과 --
++----+-------------+
+| id | title       |
++----+-------------+
+| 8  | 조용한 아침 |
+| 12 | 습관의 기술 |
++----+-------------+
+(2 rows)

@@ -1,0 +1,16 @@
+-- Q15: rental.member_id 인덱스 생성
+-- 이유: 회원별 대여 조회/집계(Q05, Q09)에서 JOIN·WHERE 조건으로 자주 쓰이는데, SQLite는 FK 컬럼에 인덱스를 자동으로 만들지 않는다.
+CREATE INDEX idx_rental_member_id ON rental (member_id);
+-- 확인 [SQLite 전용] 실행 계획에 인덱스 사용 여부 출력
+EXPLAIN QUERY PLAN
+SELECT * FROM rental WHERE member_id = 1;
+
+-- 실행 결과 --
+(실행 완료)
+
++----+--------+---------+--------------------------------------------------------------+
+| id | parent | notused | detail                                                       |
++----+--------+---------+--------------------------------------------------------------+
+| 3  | 0      | 61      | SEARCH rental USING INDEX idx_rental_member_id (member_id=?) |
++----+--------+---------+--------------------------------------------------------------+
+(1 rows)

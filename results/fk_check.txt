@@ -1,0 +1,5 @@
+INSERT INTO rental (member_id, book_id, rented_at, due_date)
+VALUES (999, 1, '2026-11-24', '2026-12-08');
+
+-- 실행 결과 --
+없는 회원(999) 참조 INSERT → 차단됨: FOREIGN KEY constraint failed

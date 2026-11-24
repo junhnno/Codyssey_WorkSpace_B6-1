@@ -1,0 +1,23 @@
+-- Q09: 회원별 대여 횟수 (대여 0회 회원 포함, 많은 순)
+SELECT m.name, COUNT(r.id) AS rental_count
+FROM member m
+LEFT JOIN rental r ON r.member_id = m.id
+GROUP BY m.id, m.name
+ORDER BY rental_count DESC, m.id;
+
+-- 실행 결과 --
++--------+--------------+
+| name   | rental_count |
++--------+--------------+
+| 김민준 | 3            |
+| 이서연 | 3            |
+| 박도윤 | 2            |
+| 최지우 | 2            |
+| 정하준 | 2            |
+| 강수아 | 1            |
+| 조예준 | 1            |
+| 윤지민 | 1            |
+| 장시우 | 0            |
+| 임하은 | 0            |
++--------+--------------+
+(10 rows)

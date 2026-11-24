@@ -1,0 +1,18 @@
+-- Q13: 반납 예정일이 지났는데 반납하지 않은 대여를 연체(OVERDUE)로 변경
+UPDATE rental
+SET status = 'OVERDUE'
+WHERE returned_at IS NULL
+  AND due_date < '2026-11-24';
+-- 확인
+SELECT id, member_id, due_date, status FROM rental WHERE status = 'OVERDUE';
+
+-- 실행 결과 --
+(변경된 행 수: 2)
+
++----+-----------+------------+---------+
+| id | member_id | due_date   | status  |
++----+-----------+------------+---------+
+| 10 | 1         | 2026-11-15 | OVERDUE |
+| 11 | 2         | 2026-11-17 | OVERDUE |
++----+-----------+------------+---------+
+(2 rows)

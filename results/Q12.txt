@@ -1,0 +1,13 @@
+-- Q12: 대여 기록이 한 번도 없는 회원
+SELECT id, name, joined_at
+FROM member
+WHERE id NOT IN (SELECT member_id FROM rental);
+
+-- 실행 결과 --
++----+--------+------------+
+| id | name   | joined_at  |
++----+--------+------------+
+| 9  | 장시우 | 2026-09-03 |
+| 10 | 임하은 | 2026-10-27 |
++----+--------+------------+
+(2 rows)

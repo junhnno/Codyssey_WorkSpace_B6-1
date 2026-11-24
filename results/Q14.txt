@@ -1,0 +1,15 @@
+-- Q14: 대여 기록이 없는 회원(임하은, id=10) 탈퇴 처리
+DELETE FROM member
+WHERE id = 10;
+-- 확인
+SELECT COUNT(*) AS member_count FROM member;
+
+-- 실행 결과 --
+(변경된 행 수: 1)
+
++--------------+
+| member_count |
++--------------+
+| 9            |
++--------------+
+(1 rows)
