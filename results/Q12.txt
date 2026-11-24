@@ -1,4 +1,6 @@
 -- Q12: 대여 기록이 한 번도 없는 회원
+-- 기대: 2행 (장시우, 임하은)
+-- 주의: NOT IN은 서브쿼리 결과에 NULL이 있으면 아무 행도 반환하지 않는다. member_id가 NOT NULL이라 안전.
 SELECT id, name, joined_at
 FROM member
 WHERE id NOT IN (SELECT member_id FROM rental);

@@ -1,4 +1,5 @@
 -- Q09: 회원별 대여 횟수 (대여 0회 회원 포함, 많은 순)
+-- 기대: 회원 10행, 마지막 두 명(장시우, 임하은)은 0회
 SELECT m.name, COUNT(r.id) AS rental_count
 FROM member m
 LEFT JOIN rental r ON r.member_id = m.id

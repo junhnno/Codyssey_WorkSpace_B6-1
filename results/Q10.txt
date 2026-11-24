@@ -1,4 +1,5 @@
 -- Q10: 카테고리별 도서 수, 가격 합계, 평균 가격 (도서가 있는 카테고리만)
+-- 기대: 8행, '프로그래밍'이 3권 / 합계 99000 / 평균 33000으로 첫 행
 SELECT c.name, COUNT(b.id) AS book_count, SUM(b.price) AS total_price, AVG(b.price) AS avg_price
 FROM category c
 JOIN book b ON b.category_id = c.id

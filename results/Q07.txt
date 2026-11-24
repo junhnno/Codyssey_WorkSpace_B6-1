@@ -1,4 +1,5 @@
 -- Q07: [INNER JOIN] 최근 30일(2026-10-25 이후) 대여 기록
+-- 기대: 7행, 최신 대여(2026-11-20)부터
 SELECT r.rented_at, m.name AS member_name, b.title
 FROM rental r
 JOIN member m ON m.id = r.member_id

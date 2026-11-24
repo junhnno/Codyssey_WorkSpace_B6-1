@@ -1,7 +1,18 @@
 -- 샘플 데이터 (부모 테이블 → 자식 테이블 순서로 입력)
+--
+-- [생성 기준]
+--   - 입력 순서: category → member → book → rental (FK가 참조하는 부모가 먼저 있어야 함)
+--   - 기준일 2026-11-24. 대여 기간은 14일(due_date = rented_at + 14일)
+--   - 쿼리 결과가 비지 않도록 일부러 넣은 경우:
+--       대여 기록 없는 회원: 9 장시우, 10 임하은   → Q09, Q12, Q14
+--       한 번도 대여되지 않은 도서: 8, 12          → Q08
+--       기준일에 이미 반납 기한이 지난 미반납: rental 10, 11 → Q13 (연체 처리)
+--       같은 책을 여러 번 대여: book 1(4회), book 4(3회) → Q11 랭킹
+--   - 현재 대여 중인 책은 서로 겹치지 않게 함(한 권을 두 명이 동시에 빌릴 수 없음)
 -- [SQLite 전용]
 PRAGMA foreign_keys = ON;
 
+-- category: id, 분류 이름 (9 예술, 10 여행은 아직 도서가 없는 분류)
 INSERT INTO category (id, name) VALUES
 (1, '프로그래밍'),
 (2, '데이터베이스'),
@@ -14,6 +25,7 @@ INSERT INTO category (id, name) VALUES
 (9, '예술'),
 (10, '여행');
 
+-- member: id, 이름, 이메일(중복 불가), 가입일
 INSERT INTO member (id, name, email, joined_at) VALUES
 (1,  '김민준', 'minjun@example.com',  '2026-01-05'),
 (2,  '이서연', 'seoyeon@example.com', '2026-02-11'),
@@ -26,6 +38,7 @@ INSERT INTO member (id, name, email, joined_at) VALUES
 (9,  '장시우', 'siwoo@example.com',   '2026-09-03'),
 (10, '임하은', 'haeun@example.com',   '2026-10-27');
 
+-- book: id, 카테고리(FK), 제목, 저자, 정가(원), 출간연도
 INSERT INTO book (id, category_id, title, author, price, published_year) VALUES
 (1,  1, '파이썬 입문',           '홍길동', 25000, 2021),
 (2,  1, '모던 C++ 프로그래밍',   '김철수', 38000, 2023),
@@ -40,7 +53,8 @@ INSERT INTO book (id, category_id, title, author, price, published_year) VALUES
 (11, 7, '우주의 구조',           '문과학', 27000, 2025),
 (12, 8, '습관의 기술',           '신계발', 16000, 2022);
 
--- 2026-11-24 기준: 반납 완료(RETURNED) / 대여 중(RENTED, 일부는 연체 상태)
+-- rental: id, 회원(FK), 도서(FK), 대여일, 반납예정일, 실제반납일(NULL=미반납), 상태
+-- 2026-11-24 기준: 반납 완료(RETURNED) / 대여 중(RENTED, 그중 10·11번은 기한 초과 → Q13에서 OVERDUE로 변경)
 INSERT INTO rental (id, member_id, book_id, rented_at, due_date, returned_at, status) VALUES
 (1,  1, 1,  '2026-09-01', '2026-09-15', '2026-09-10', 'RETURNED'),
 (2,  1, 4,  '2026-09-20', '2026-10-04', '2026-10-01', 'RETURNED'),

@@ -1,4 +1,5 @@
 -- Q06: [INNER JOIN] 도서와 카테고리 이름을 함께 조회
+-- 기대: 도서 12행 전부 (도서가 없는 카테고리 '예술', '여행'은 나오지 않음)
 SELECT b.title, c.name AS category
 FROM book b
 JOIN category c ON c.id = b.category_id

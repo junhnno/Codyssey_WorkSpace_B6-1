@@ -1,4 +1,5 @@
 -- Q13: 반납 예정일이 지났는데 반납하지 않은 대여를 연체(OVERDUE)로 변경
+-- 기대: 2행 변경 (rental 10, 11)
 UPDATE rental
 SET status = 'OVERDUE'
 WHERE returned_at IS NULL

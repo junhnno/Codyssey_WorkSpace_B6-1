@@ -1,4 +1,5 @@
 -- Q03: 제목에 '파이썬'이 들어간 도서 검색
+-- 기대: 2행 ('파이썬 입문', '파이썬 알고리즘 인터뷰')
 SELECT id, title, author
 FROM book
 WHERE title LIKE '%파이썬%';

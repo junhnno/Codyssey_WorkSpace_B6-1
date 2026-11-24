@@ -1,4 +1,5 @@
 -- Q11: 가장 많이 대여된 도서 TOP 3 (랭킹)
+-- 기대: '파이썬 입문'(4회), 'SQL 첫걸음'(3회), 그다음 1회 도서 중 id가 가장 작은 것
 SELECT b.title, COUNT(*) AS rental_count
 FROM rental r
 JOIN book b ON b.id = r.book_id

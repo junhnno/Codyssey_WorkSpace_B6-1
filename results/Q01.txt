@@ -1,4 +1,5 @@
 -- Q01: 2021년 이후 출간된 도서를 최신순으로 조회
+-- 기대: 8행, 첫 행은 2025년 '우주의 구조'
 SELECT id, title, author, published_year
 FROM book
 WHERE published_year >= 2021

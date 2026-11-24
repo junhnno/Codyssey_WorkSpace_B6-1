@@ -1,4 +1,5 @@
 -- Q05: [INNER JOIN] 현재 대여 중인 책 목록 (누가, 무엇을, 언제까지)
+-- 기대: 미반납 6건, 회원 이름과 책 제목이 함께 표시
 SELECT m.name AS member_name, b.title, r.rented_at, r.due_date
 FROM rental r
 JOIN member m ON m.id = r.member_id
