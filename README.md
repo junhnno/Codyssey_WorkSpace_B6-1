@@ -13,6 +13,9 @@ SQLite는 FK 검사가 기본으로 꺼져 있으므로 접속할 때마다 `PRA
 | book | id | 도서 정보 | category_id → category.id |
 | rental | id | 대여 1건의 기록 (누가, 어떤 책을, 언제) | member_id → member.id, book_id → book.id |
 
+### ERD
+![도서 대여 DB ERD](images/erd.png)
+
 ### 1:N 관계와 그 이유
 - **category 1:N book**: '프로그래밍' 분류에는 『파이썬 입문』, 『모던 C++ 프로그래밍』 등 여러 권이 속한다. 반대로 한 권은 분류 하나에만 속한다. 그래서 FK는 N쪽인 book에 둔다.
 - **member 1:N rental**: 김민준 회원은 9월, 9월 말, 11월에 세 번 빌렸다. 대여 1건의 대여자는 항상 한 명이다.
@@ -54,6 +57,9 @@ SQLite는 FK 검사가 기본으로 꺼져 있으므로 접속할 때마다 `PRA
 - **INNER JOIN**: 양쪽 모두에 짝이 있는 행만 남긴다.
 - **LEFT JOIN**: 왼쪽 테이블의 행은 모두 남긴다. 짝이 없으면 오른쪽 컬럼을 NULL로 채운다.
 - 예: `category`와 `book`을 INNER JOIN하면 12행이 나온다. 도서가 없는 '예술', '여행'은 빠진다. LEFT JOIN하면 14행이 나오고, '예술'과 '여행' 행의 book 컬럼은 NULL이다.
+
+![INNER JOIN과 LEFT JOIN 비교](images/join.png)
+
 - Q08은 이 NULL을 이용한다. LEFT JOIN 뒤에 `WHERE r.id IS NULL`을 걸면 "짝이 없는 행", 즉 한 번도 대여되지 않은 책만 남는다.
 
 ### GROUP BY와 집계 함수
